@@ -2,7 +2,7 @@ import Helper from './../Helper/Helper';
 
 
 export default class Application {
-    constructor(cssString, servicesList, lng, switchButtonElement){
+    constructor(cssString, servicesList, lng){
         this._setDocumentStyle(cssString);
         this.servicesList = servicesList? servicesList : [];
         this.lng = lng;
@@ -10,21 +10,6 @@ export default class Application {
         this.ready = false;
         this.services = {};
         document.body.setAttribute('data-version-loading-text',lng.initText? lng.initText: '');
-        const specialVersionButton = document.body.querySelectorAll(switchButtonElement? switchButtonElement : '.js-special-version');
-        for(let i = 0; i<specialVersionButton.length; i++){
-            specialVersionButton[i].addEventListener('click',()=>{
-                document.body.classList.add('special-version-loading');
-                if(!this.nodes){
-                    Helper.getNodes().then(nodes => {
-                        this.nodes = nodes;
-                        this.start();
-                    });
-                } else {
-                    this.ready = false;
-                    this.start();
-                }
-            },false);
-        }
         if(specialVersion){
             document.body.classList.add('special-version-loading');
              Helper.getNodes().then(nodes => {

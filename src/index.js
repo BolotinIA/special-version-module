@@ -12,7 +12,7 @@ import PluginSpeechSystem from './components/TextReadService/textReadService';
 
 
 class SpecialVersion {
-  constructor(switchButtonElement,services,lng,customCss){
+  constructor(services, lng, customCss){
     this.services = [
       FontSizeService,
       FontFamilyService,
@@ -273,10 +273,10 @@ class SpecialVersion {
       initText:'special version init'
     };
     this.connectServiceClasses(serviceList);
-    this.init(customCss? customCss : specialVerCss,serviceList,lngSettings,switchButtonElement);
+    this.init(customCss? customCss : specialVerCss, serviceList, lngSettings);
   }
-  init(specialVerCss,serviceList,lngSettings,switchButtonElement){
-    const app = new Application(specialVerCss,serviceList,lngSettings,switchButtonElement);
+  init(specialVerCss, serviceList, lngSettings) {
+    this.app = new Application(specialVerCss, serviceList, lngSettings);
   };
   connectServiceClasses(settings){
     for(let i=0; i<settings.length; i++){
@@ -311,6 +311,19 @@ class SpecialVersion {
         return null
       }
     }
+  }
+
+  start() {
+    this.app.start();
+  }
+
+  stop() {
+    this.app.reset();
+  }
+
+  reload() {
+    this.stop();
+    this.start();
   }
 }
 
