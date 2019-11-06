@@ -11,13 +11,27 @@ export default class Application {
         this.services = {};
         document.body.setAttribute('data-version-loading-text',lng.initText? lng.initText: '');
         if(specialVersion){
-            document.body.classList.add('special-version-loading');
-             Helper.getNodes().then(nodes => {
-                this.nodes = nodes;
-               this.start();
-            });
+            this.run();
         }
     }
+
+    isReady() {
+        return this.ready;
+    }
+
+    run() {
+        document.body.classList.add('special-version-loading');
+        if(!this.nodes){
+            Helper.getNodes().then(nodes => {
+                this.nodes = nodes;
+                this.start();
+            });
+        } else {
+            this.ready = false;
+            this.start();
+        }
+    }
+
     start(){
       this.initServices();
       if(!this.uiBlock){
