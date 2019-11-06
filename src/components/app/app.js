@@ -24,6 +24,7 @@ export default class Application {
 
         Helper.getNodes().then(nodes => {
             this.nodes = nodes;
+            this.ready = false;
             this.start();
         });
     }
