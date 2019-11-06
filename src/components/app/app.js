@@ -15,21 +15,17 @@ export default class Application {
         }
     }
 
-    isReady() {
-        return this.ready;
+    isRunning() {
+        return !!window.localStorage.getItem('specialVersion');
     }
 
     run() {
         document.body.classList.add('special-version-loading');
-        if(!this.nodes){
-            Helper.getNodes().then(nodes => {
-                this.nodes = nodes;
-                this.start();
-            });
-        } else {
-            this.ready = false;
+
+        Helper.getNodes().then(nodes => {
+            this.nodes = nodes;
             this.start();
-        }
+        });
     }
 
     start(){

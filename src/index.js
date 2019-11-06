@@ -70,13 +70,13 @@ export default class SpecialVersion {
   }
 
   stop() {
-    if (this.app.isReady()) {
+    if (this.app.isRunning()) {
       this.app.reset();
     }
   }
 
   reload() {
-    if (this.app.isReady()) {
+    if (this.app.isRunning()) {
       this.stop();
       this.start();
     }
